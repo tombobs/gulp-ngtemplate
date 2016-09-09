@@ -21,7 +21,7 @@ module.exports = function(options) {
       return next(null, file); // pass along
     }
 
-    var name = path.relative(file.base, file.path);
+    var name = (options.prefix || '') + path.relative(file.base, file.path);
     var contents = file.contents.toString('utf8').replace(/\'/g, '\\\'').replace(/\r?\n/g, '\\n\' +\n  \'');
     var module = typeof options.module === 'function' ? options.module.call(file, name) : (options.module || 'ngTemplates');
     var standalone = options.standalone ? ', []' : '';
